@@ -1,17 +1,42 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import '../styles/register.css'
-
+import { userContext } from "../context/AuthContext";
+/*
+ const {name, value, files} = e.target
+ setRegisterData({})
+*/
 function Registre(){
-    const [registerData, setRgisterData] = useState({})
+     const {user, setUser} = useContext(userContext)
+     const navigate = useNavigate()
+    useEffect(()=>{      
+        if (user) console.log(user);
+    }, [])
+       
+    const [registerData, setRgisterData] = useState({
+        nom:'', prenom:'', email:'',
+        password: '', confirmPassword:'',
+        profileImage: null
+    })
 
-    const formData= new FormData()
+    
     const handleChanges = (e)=>{
-
+        const {name, value, files} = e.target
+        setRgisterData({    
+            ...registerData,
+            [name]: (name === 'profileImage' ? files[0] : value )
+        })
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log('form')
+        const formData= new FormData()
+        for (let cle in registerData) formData.append(cle, registerData[cle])
+        
+        for (const [cle, valeur] of formData.entries()) console.log(`${cle} : ${valeur}`);
+        
+        //setUser(true)
+        navigate('/')        
     }
     return(
         <div className="register-page">
@@ -20,17 +45,16 @@ function Registre(){
                     type="text" 
                     name="nom" 
                     placeholder="Votre nom"
-                    value={""}
+                    value={registerData.nom}
                     onChange = {handleChanges}
                     required
-
                 />
 
                 <input 
                     type="text" 
                     name="prenom" 
                     placeholder="Votre preéom"
-                    value={""}
+                    value={registerData.prenom}
                     onChange = {handleChanges}
                     required
 
@@ -40,49 +64,53 @@ function Registre(){
                     type="email" 
                     name="email" 
                     placeholder="Votre émail"
-                    value={""}
+                    value={registerData.email}
                     onChange = {handleChanges}
                     required
 
                 />
 
                 <input 
-                    type="text" 
+                    type="password" 
                     name="password" 
                     placeholder="Password"
-                    value={""}
+                    value={registerData.password}
                     onChange = {handleChanges}
                     required
                 />
 
                 <input 
-                    type="text" 
+                    type="password" 
                     name="confirmPassword" 
                     placeholder="Confirmer le mot de passe"
-                    value={""}
+                    value={registerData.confirmPassword}
                     onChange = {handleChanges}
                     required
                 />
 
-                <input 
+                <div className="profile-image">
+                    <input 
                     type="file" 
                     name="profileImage"
                     id="image" 
                     accept="image/*"
-                    placeholder="Votre nom"
-                    value={""}
+                    placeholder="Votre nom"                    
                     onChange = {handleChanges}
                     required
                     style={{display:'none'}}
                 />
 
                 <label htmlFor="image">
-                    <MdOutlineCloudUpload size={32}/>
-                    <div>Votre photo de profile</div>
+                    <MdOutlineCloudUpload size={50}/>
+                    <div>Photo de profile</div>
                 </label>
 
                 <div className="">
-                    {/* <img src="" alt="" /> */}
+                    {registerData.profileImage && 
+                    <img src={URL.createObjectURL(registerData.profileImage)} 
+                    style={{width:'140px', margin: 'auto'}}
+                    alt="" />}
+                </div>
                 </div>
 
                 <button type="submit">Enregister</button>
