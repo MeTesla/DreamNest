@@ -1,5 +1,7 @@
 import {useContext, useState} from 'react'
 import { userContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom';
+
 import '../styles/header.css'
 import { FaUser } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
@@ -10,17 +12,16 @@ import logoChef from '../assets/logoChef.png'
 
 function Header() {
     const {user, setUser} = useContext(userContext)
-    const [isConnected, setIsConnected] = useState(user)
-    console.log(user);
+    const [showMenu, setShowMenu] = useState(false)
     
     function handleShowMenu(){
-        setIsConnected(!isConnected)
-        console.log(isConnected);       
+        setShowMenu(!showMenu)
     }
 
     function handleLogout(e){
         e.stopPropagation()
         setUser(!user)
+        setShowMenu(!showMenu)
     }
 
     return (
@@ -33,8 +34,8 @@ function Header() {
             <IoMdMenu size={30} />
             <FaUser size={20} />            
         </div>
-        <div className={`menus ${isConnected && 'show' }`}  >
-            {isConnected ?
+        <div className={`menus ${showMenu && 'show' }`}  >
+            {user ?
                 <div className='connected'>
                     <div>Wish List</div>
                     <div>My favorite</div>
@@ -42,8 +43,8 @@ function Header() {
                 </div>
                 :
                 <div className='disconnected'>
-                    <div>Login</div>
-                    <div>Rigister</div>
+                    <Link to='/login'>Login</Link>
+                    <Link to='/register'>Register</Link>
                 </div>
             }
         </div>

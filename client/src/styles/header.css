@@ -26,11 +26,24 @@
 
 .menus {
     position: absolute ;
-    top: 50px;
+    top: 50px; right: 0px;
+    width: 140px;
     border:1px solid;
     display: none;
+    padding: 10px;
 }
 
 .menus.show{
     display: block;
+}
+
+.menus .connected, .menus .disconnected{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+.menus .connected a, .menus .disconnected a{
+    text-decoration: none;
 }
