@@ -6,7 +6,6 @@ import '../styles/header.css'
 import { FaUser } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 
-
 import logoChef from '../assets/logoChef.png'
 
 

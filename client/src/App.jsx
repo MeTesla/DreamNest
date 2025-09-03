@@ -7,6 +7,8 @@ import './App.css'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login';
+import ProtectedRoutes from './ProtectedRoutes';
+import Favoris from './pages/Favoris';
 
 // {} :  element= {<Home />} 
 function App() {
@@ -19,7 +21,10 @@ function App() {
           <Routes>          
             <Route path='/' element= {<Home />} />
             <Route path='/register' element= {<Register />} />
-            <Route path='/login' element= {<Login />} />           
+            <Route path='/login' element= {<Login />} />
+            <Route element ={<ProtectedRoutes />}>              
+              <Route path='/favoris' element= {<Favoris />} />
+            </Route>        
           </Routes>
         </UserContextProvider>
       </BrowserRouter>
