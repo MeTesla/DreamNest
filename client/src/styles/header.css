@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;    
+}
+
+.logo img{
+    width: 70px;
+    cursor: pointer;
+}
+
+.user{
+    position: relative;
+}
+.user .icons{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgb(194, 191, 191);
+    border-radius: 25px;
+    padding: 5px 15px;
+    color: rgb(71, 71, 71);
+    cursor: pointer;
+}
+
+.menus {
+    position: absolute ;
+    top: 50px;
+    border:1px solid;
+    display: none;
+}
+
+.menus.show{
+    display: block;
+}

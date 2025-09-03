@@ -6,6 +6,7 @@ import { userContext } from "../context/AuthContext";
 /*
  const {name, value, files} = e.target
  setRegisterData({})
+ je dois m'assurer que tous les champs sont dans formData
 */
 function Registre(){
      const {user, setUser} = useContext(userContext)
@@ -31,11 +32,12 @@ function Registre(){
     const handleSubmit=(e)=>{
         e.preventDefault()
         const formData= new FormData()
+        // je dois m'assurer que tous les champs sont dans formData
         for (let cle in registerData) formData.append(cle, registerData[cle])
         
         for (const [cle, valeur] of formData.entries()) console.log(`${cle} : ${valeur}`);
         
-        //setUser(true)
+        setUser(true)
         navigate('/')        
     }
     return(

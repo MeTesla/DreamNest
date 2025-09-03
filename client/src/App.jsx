@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
+import {UserContextProvider} from './context/AuthContext'
 import './App.css'
 
 
@@ -14,13 +15,13 @@ function App() {
     <>
     
       <BrowserRouter>
-        <Routes>
-          
+        <UserContextProvider>
+          <Routes>          
             <Route path='/' element= {<Home />} />
             <Route path='/register' element= {<Register />} />
-            <Route path='/login' element= {<Login />} />
-          
-        </Routes>
+            <Route path='/login' element= {<Login />} />           
+          </Routes>
+        </UserContextProvider>
       </BrowserRouter>
     </>
   )
