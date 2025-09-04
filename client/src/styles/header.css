@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;    
+;
 }
 
 .logo img{
@@ -26,9 +27,12 @@
 
 .menus {
     position: absolute ;
+    z-index: 44;
     top: 50px; right: 0px;
     width: 140px;
-    border:1px solid;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 1px gray;
     display: none;
     padding: 10px;
 }

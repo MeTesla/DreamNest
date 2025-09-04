@@ -33,6 +33,7 @@ function Registre(){
         e.preventDefault()
         const formData= new FormData()
         // je dois m'assurer que tous les champs sont dans formData
+
         for (let cle in registerData) formData.append(cle, registerData[cle])
         
         for (const [cle, valeur] of formData.entries()) console.log(`${cle} : ${valeur}`);

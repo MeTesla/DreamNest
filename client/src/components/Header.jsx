@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../styles/header.css'
 import { FaUser } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
-
+import imageProfile from '../assets/imageProfile.jpeg'
 import logoChef from '../assets/logoChef.png'
 
 
@@ -31,7 +31,10 @@ function Header() {
       <div className="user" onClick={handleShowMenu}>
         <div className="icons">
             <IoMdMenu size={30} />
-            <FaUser size={20} />            
+            {user ? 
+              <img style={{width: '30px', borderRadius:'50%'}} src={imageProfile} alt="" />
+            : <FaUser size={20} />
+            }            
         </div>
         <div className={`menus ${showMenu && 'show' }`}  >
             {user ?
