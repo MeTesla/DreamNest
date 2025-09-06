@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const express = requoire('exress')
 
 const userSchema = new mongoose.Schema({
     name : {
@@ -17,13 +16,15 @@ const userSchema = new mongoose.Schema({
     },
     appartements:{
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'AppartementModel',
+        ref: 'Appartement',
     },
     favoris:{
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'AppartementsModel',
+        ref: 'Appartements',
     }
 
 })
 
-const UserModule = mongoose.model('User', userSchema)
+const UserModel = mongoose.model('User', userSchema)
+
+module.exports = UserModel
