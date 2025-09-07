@@ -74,10 +74,10 @@ Exemple de Documents
 
 
 # Les requêtes :
-# - Enregistrer 
+# - Enregistrer / Supprimer compte
 # - Login
 
-# - Voir tous les appartements.                 get - model.find()              
+# - Voir tous les appartements. Sauf les miens  get - model.find()              
 # - CRUD des appt / add - update..              post- model.save()
 
 # - Voir détail d'un apt + Louer cet apt        get - model.findById /:appt_id
@@ -96,6 +96,4 @@ Exemple de Documents
 
 
 #                       - Utilisateur         - Appt           -Réservation
-
-
-                www.airbnb.fr/rooms/1310727953770993534
+                                www.airbnb.fr/rooms/1310727953770993534

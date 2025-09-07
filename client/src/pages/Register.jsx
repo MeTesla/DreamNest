@@ -17,8 +17,8 @@ function Registre(){
        
     const [registerData, setRgisterData] = useState({
         nom:'', prenom:'', email:'',
-        password: '', confirmPassword:'',
-        profileImage: null
+        password: '', 
+        //profileImage: null
     })
 
     
@@ -26,10 +26,11 @@ function Registre(){
         const {name, value, files} = e.target
         setRgisterData({    
             ...registerData,
-            [name]: (name === 'profileImage' ? files[0] : value )
+            [name]: value,
+            //[name]: (name === 'profileImage' ? files[0] : value )
         })
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit= async(e)=>{
         e.preventDefault()
         const formData= new FormData()
         // je dois m'assurer que tous les champs sont dans formData
@@ -37,8 +38,24 @@ function Registre(){
         for (let cle in registerData) formData.append(cle, registerData[cle])
         
         for (const [cle, valeur] of formData.entries()) console.log(`${cle} : ${valeur}`);
-        
         setUser(true)
+        
+        const donnee ={
+            nom: 'ali', prenom: 'mido'
+        }
+        
+        const reponse = await fetch('http://localhost:3000/register',{
+            method: 'post',
+            // headers: {
+            //         'Content-Type': 'application/json'
+            // },
+            body: formData
+        })
+
+        const data = await reponse.json(reponse)
+        console.log(data)
+        
+
         navigate('/')        
     }
     return(
@@ -87,12 +104,12 @@ function Registre(){
                     type="password" 
                     name="confirmPassword" 
                     placeholder="Confirmer le mot de passe"
-                    value={registerData.confirmPassword}
-                    onChange = {handleChanges}
+                    // value={registerData.confirmPassword}
+                    // onChange = {handleChanges}
                     required
                 />
 
-                <div className="profile-image">
+                {/* <div className="profile-image">
                     <input 
                     type="file" 
                     name="profileImage"
@@ -100,7 +117,6 @@ function Registre(){
                     accept="image/*"
                     placeholder="Votre nom"                    
                     onChange = {handleChanges}
-                    required
                     style={{display:'none'}}
                 />
 
@@ -112,10 +128,10 @@ function Registre(){
                 <div className="">
                     {registerData.profileImage && 
                     <img src={URL.createObjectURL(registerData.profileImage)} 
-                    style={{width:'140px', margin: 'auto'}}
-                    alt="" />}
+                        style={{width:'140px', margin: 'auto'}} 
+                    />}
                 </div>
-                </div>
+                </div> */}
 
                 <button type="submit">Enregister</button>
             </form>
