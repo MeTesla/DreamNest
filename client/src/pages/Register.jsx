@@ -43,10 +43,21 @@ function Registre(){
             body: formData
         })
 
-        const data = await reponse.json()
-        console.log(data)
-        setUser(true)
-        navigate('/')        
+        
+            const data = await reponse.json()
+        if(data.message) {
+            
+            return
+           
+        }
+        if(data){
+            console.log(data)
+            setUser(data)
+            navigate('/')    
+        }
+        else{
+            navigate('/login')    
+        }    
     }
     return(
         <div className="register-page">
