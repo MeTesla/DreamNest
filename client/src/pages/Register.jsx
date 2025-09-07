@@ -42,22 +42,11 @@ function Registre(){
             method: "POST",
             body: formData
         })
-
         
-            const data = await reponse.json()
-        if(data.message) {
-            
-            return
-           
-        }
-        if(data){
-            console.log(data)
-            setUser(data)
-            navigate('/')    
-        }
-        else{
-            navigate('/login')    
-        }    
+        const data = await reponse.json()
+        localStorage.setItem('token', data)
+        setUser(data)
+        navigate('/')
     }
     return(
         <div className="register-page">

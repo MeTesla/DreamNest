@@ -19,7 +19,8 @@ function Header() {
 
     function handleLogout(e){
         e.stopPropagation()
-        setUser(!user)
+        localStorage.removeItem('token')
+        setUser(false)
         setShowMenu(!showMenu)
     }
 
