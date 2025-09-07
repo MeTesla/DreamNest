@@ -1,25 +1,25 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const utilisateurSchema = new mongoose.Schema({
     nom : {
         type: String,
-        required
+        require
     },
     prenom : {
         type: String,
-        required
+        require
     },
     email:{
         type: String,
-        required,        
+        require,        
     },
     password:{
         type: String,
-        required,
+        require,
     },
-    profileImage:{
+    profileImagePath:{
         type: String,
-        required,
+        require,
     },
     appartements:{
         type: [mongoose.Schema.Types.ObjectId],
@@ -32,6 +32,6 @@ const userSchema = new mongoose.Schema({
     mesLocations:{},
 })
 
-const UtilisateurModel = mongoose.model('User', userSchema)
+const UtilisateurModel = mongoose.model('Utilisateur', utilisateurSchema)
 
 module.exports = UtilisateurModel
