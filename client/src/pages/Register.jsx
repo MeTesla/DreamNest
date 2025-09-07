@@ -16,9 +16,8 @@ function Registre(){
     }, [])
        
     const [registerData, setRgisterData] = useState({
-        nom:'', prenom:'', email:'',
-        password: '', 
-        //profileImage: null
+        nom:'', prenom:'', email:'', password: '', 
+        profileImage: null
     })
 
     
@@ -26,8 +25,7 @@ function Registre(){
         const {name, value, files} = e.target
         setRgisterData({    
             ...registerData,
-            [name]: value,
-            //[name]: (name === 'profileImage' ? files[0] : value )
+            [name]: (name === 'profileImage' ? files[0] : value )            
         })
     }
     const handleSubmit= async(e)=>{
@@ -35,27 +33,19 @@ function Registre(){
         const formData= new FormData()
         // je dois m'assurer que tous les champs sont dans formData
 
-        for (let cle in registerData) formData.append(cle, registerData[cle])
-        
-        for (const [cle, valeur] of formData.entries()) console.log(`${cle} : ${valeur}`);
-        setUser(true)
-        
-        const donnee ={
-            nom: 'ali', prenom: 'mido'
+        for (let cle in registerData) {
+            formData.append(cle, registerData[cle])            
         }
         
-        const reponse = await fetch('http://localhost:3000/register',{
-            method: 'post',
-            // headers: {
-            //         'Content-Type': 'application/json'
-            // },
+        
+        const reponse = await fetch("http://localhost:3000/register",{
+            method: "POST",
             body: formData
         })
 
-        const data = await reponse.json(reponse)
+        const data = await reponse.json()
         console.log(data)
-        
-
+        setUser(true)
         navigate('/')        
     }
     return(
@@ -104,12 +94,12 @@ function Registre(){
                     type="password" 
                     name="confirmPassword" 
                     placeholder="Confirmer le mot de passe"
-                    // value={registerData.confirmPassword}
+                    //value={registerData.confirmPassword}
                     // onChange = {handleChanges}
                     required
                 />
 
-                {/* <div className="profile-image">
+                <div className="profile-image">
                     <input 
                     type="file" 
                     name="profileImage"
@@ -131,7 +121,7 @@ function Registre(){
                         style={{width:'140px', margin: 'auto'}} 
                     />}
                 </div>
-                </div> */}
+                </div>
 
                 <button type="submit">Enregister</button>
             </form>

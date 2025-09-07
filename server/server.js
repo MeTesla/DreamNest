@@ -1,15 +1,17 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const userRouter = require('./routes/utilisateurRouter')
+const utilisateurRouter = require('./routes/utilisateurRouter')
 const dotenv = require('dotenv').config()
 const app=express()
 
+app.use(express.json())
+app.use(express.static("public"));
+
+
 app.use(cors())
-app.use(express.json());
 
-
-app.use('/',userRouter)
+app.use('/',utilisateurRouter)
 
 mongoose.connect(process.env.URL)
     .then(() => {
