@@ -9,9 +9,18 @@ function Login() {
     const {user, setUser} = useContext(userContext)
 
     const navigate = useNavigate()
-    function handleSubmit(e){
+    const handleSubmit = async(e)=>{
         e.preventDefault()
-        console.log(email, password);
+        
+        const reponse= await fetch('http://localhost:3000/login',{
+          method: "POST",
+          headers:{"Content-Type": "application/json"},
+          body: JSON.stringify({email, password})
+        })
+        const data = await reponse.json()
+        console.log(data);
+        
+        
         setUser(true)
         navigate('/') // note (/home)
     }

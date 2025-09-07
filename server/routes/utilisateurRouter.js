@@ -19,6 +19,12 @@ const storage = multer.diskStorage({
 }); 
 const upload = multer({ storage });
 
+// Generate token function
+    const generateToken = (id) => {
+      return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: "3d",
+      });
+    }; 
 // New user
 utilisateurRouter.post('/register', upload.single("profileImage"),async(req, res)=>{
     const {nom, prenom, email, password}  = req.body
@@ -51,11 +57,7 @@ utilisateurRouter.post('/register', upload.single("profileImage"),async(req, res
     })
     await utilisateur.save()
     // Token
-    const generateToken = (id) => {
-      return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: "3d",
-      });
-    }; 
+
     const token = generateToken(utilisateur._id)
 
     try{
@@ -67,7 +69,15 @@ utilisateurRouter.post('/register', upload.single("profileImage"),async(req, res
 
 // Login user
 utilisateurRouter.post('/login', async(req, res)=>{
+  const {email, password} = req.body
 
+  const userNotExists = await UtilisateurModel.findOne({email})
+  if(userNotExists){
+    return  res.json({success: false, message:'Ce compte n\'existe pas'})
+  }
+  
+  //comparer Mots de passe
+  res.json({email,password})
 })
 
 // Ajout appartement
