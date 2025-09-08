@@ -1,6 +1,7 @@
 import {useContext, useState} from 'react'
 import { userContext } from '../context/AuthContext'
 import { Link } from 'react-router-dom';
+import AjoutApt from '../pages/AjoutApt';
 
 import '../styles/header.css'
 import { FaUser } from "react-icons/fa";
@@ -40,6 +41,7 @@ function Header() {
         <div className={`menus ${showMenu && 'show' }`}  >
             {user ?
                 <div className='connected'>
+                  <Link to='/appartements/ajout-appartement'>Ajouter un appartement</Link>
                     <div>Wish List</div>
                     <div>My favorite</div>
                     <div onClick={handleLogout}>Logout</div>

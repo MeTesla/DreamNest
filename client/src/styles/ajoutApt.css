@@ -1,0 +1,67 @@
+
+h1{
+    margin: 16px 6px;
+}
+.apt-photos .photos{
+    border: 1px solid  ;
+    border-radius: 20px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    padding:20px;
+    margin: 20px auto;
+}
+.apt-photos .photos label{
+    text-align: center;
+}
+
+.categorie .categories{
+    display: flex;
+    gap: 30px;
+    justify-content: space-evenly;
+}
+.categorie .categories div{
+    min-width: 120px;
+    height: 120px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    display: flex; justify-content: center; align-items: center;
+    font-weight: bold;
+    transition:.3s cubic-bezier(1, 0, 0, 1)
+}
+.categorie .categories div:hover{
+    background-color: rgb(230, 252, 244);
+}
+
+.adresse textarea{
+    width: 70%;
+    display: block;
+    margin: 30px auto;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.options{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-self: center;
+    gap: 60px;
+}
+.options div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 20px;
+    transition: .3s cubic-bezier(1, 0, 0, 1)
+}
+.options div:hover{
+    background-color: rgb(230, 252, 244);
+}
+.options div span{
+    font-weight: bold;
+    font-size: 1.2rem;
+}

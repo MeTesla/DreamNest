@@ -13,7 +13,7 @@ import ProtectedRoutes from './ProtectedRoutes';
 import Favoris from './pages/Favoris';
 import AjoutApt from './pages/AjoutApt';
 import DetailsApt from './pages/DetailsApt'
-
+import Header from './components/Header';
 // {} :  element= {<Home />} 
 function App() {
   const user = useContext(userContext)
@@ -23,6 +23,7 @@ function App() {
     
       <BrowserRouter>
         <UserContextProvider>
+          <Header />
           <Routes>          
             <Route path='/' element= {<Home />} />
             <Route path='/register' element= {user ? <Navigate to="/" />: <Register />} /> {/*Voir comment restreindre l'accès à register & login en cas de User */}
