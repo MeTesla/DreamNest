@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/ajoutApt.css'
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { IoWifi } from "react-icons/io5";
@@ -9,14 +9,18 @@ import { MdOutlineGarage } from "react-icons/md";
 import { MdOutlineIron } from "react-icons/md";
 
 function AjoutApt() {
+    const [aptImg, setAptImg] = useState([])
   return (
 
     <div className='ajout-apt'>
-
-      <form className='form-ajout-apt'>
-        
+      <form className='form-ajout-apt'>        
+        <h1>Ajouter des photos du logement</h1>
+        {aptImg && aptImg.map(img=>(
+            <div className="apt-img">
+                <img src={URL.createObjectURL(img)} alt="apt img" />
+            </div>
+        ))}
         <div className="apt-photos">
-            <h1>Ajouter des photos du logement</h1>
             <div className="photos">
                 <input type="file" name="photos" id="photos" 
                     accept='image/*'
@@ -72,8 +76,8 @@ function AjoutApt() {
                 <MdOutlineIron size={40} />
             </div>
         </div>
-        <div>
-            <button type="submit">Ajouter</button>
+        <div className='submit'>
+            <button  type="submit">Ajouter</button>
         </div>
       </form>
     </div>

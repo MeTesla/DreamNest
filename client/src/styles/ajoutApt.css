@@ -1,6 +1,9 @@
 
 h1{
     margin: 16px 6px;
+    font-size: 1.4rem;
+    padding: 10px 0;
+    border-bottom: 1px solid gray;
 }
 .apt-photos .photos{
     border: 1px solid  ;
@@ -64,4 +67,11 @@ h1{
 .options div span{
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+
+.submit button{
+    margin: 20px auto;
+    display: block;
+    padding: 20px 26px
 }

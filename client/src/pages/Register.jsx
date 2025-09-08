@@ -105,7 +105,6 @@ function Registre(){
                     name="profileImage"
                     id="image" 
                     accept="image/*"
-                    placeholder="Votre nom"                    
                     onChange = {handleChanges}
                     style={{display:'none'}}
                 />
