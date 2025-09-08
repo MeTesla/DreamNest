@@ -71,13 +71,20 @@ utilisateurRouter.post('/register', upload.single("profileImage"),async(req, res
 utilisateurRouter.post('/login', async(req, res)=>{
   const {email, password} = req.body
 
-  const userNotExists = await UtilisateurModel.findOne({email})
-  if(userNotExists){
+  const userExists = await UtilisateurModel.findOne({email})
+  
+  if(!userExists){    
     return  res.json({success: false, message:'Ce compte n\'existe pas'})
   }
-  
+
   //comparer Mots de passe
-  res.json({email,password})
+  // Compare le mot de passe fourni avec le hash stocké
+  const match = await bcrypt.compare(password, userExists.password);
+  if (!match) return res.status(400).json({ error: 'L\'émail ou le mot de passe est incorrect' });
+  
+    //renvoyer token
+  const token = generateToken(userExists._id)
+  res.json({success:true, token})
 })
 
 // Ajout appartement

@@ -51,7 +51,7 @@ function Registre(){
     return(
         <div className="register-page">
             <form onSubmit={handleSubmit} className="register-form">
-                <h1>Reginster</h1>
+                <h1>Register</h1>
                 <input 
                     type="text" 
                     name="nom" 

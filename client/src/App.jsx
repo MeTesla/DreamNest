@@ -11,6 +11,8 @@ import Register from './pages/Register'
 import Login from './pages/Login';
 import ProtectedRoutes from './ProtectedRoutes';
 import Favoris from './pages/Favoris';
+import AjoutApt from './pages/AjoutApt';
+import DetailsApt from './pages/DetailsApt'
 
 // {} :  element= {<Home />} 
 function App() {
@@ -28,6 +30,8 @@ function App() {
             
             <Route element ={<ProtectedRoutes />}>              
               <Route path='/favoris' element= {<Favoris />} />
+              <Route path='/appartements/ajout-appartement' element= {<AjoutApt />} />
+              <Route path='/appartements/:id' element= {<DetailsApt />} />  
             </Route>  
 
           </Routes>

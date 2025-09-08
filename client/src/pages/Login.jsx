@@ -1,8 +1,9 @@
 import React, { useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { userContext } from '../context/AuthContext'
+import Header from '../components/Header'
 import '../styles/login.css'
-
+ 
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -18,16 +19,21 @@ function Login() {
           body: JSON.stringify({email, password})
         })
         const data = await reponse.json()
-        console.log(data);
-        
-        
-        setUser(true)
-        navigate('/') // note (/home)
+
+        if(data.success){
+          localStorage.setItem('token', data.token)                   
+          setUser(true)
+          navigate('/')
+        } else{
+          navigate('/register')
+        }
+         
     }
 
     
   return (
     <div className='login-page'>
+      {/* <Header /> */}
       <form onSubmit={handleSubmit} className='login-form'>
         <h1>Login </h1>
         <input 
