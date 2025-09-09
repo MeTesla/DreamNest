@@ -1,7 +1,7 @@
 {/*Voir comment ne pas autoriser l'accès à register & login en cas de User */}
 
 import { useState, useContext } from 'react'
-import { BrowserRouter, Routes,Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes,Route, Navigate } from 'react-router-dom';
 import {UserContextProvider, userContext} from './context/AuthContext'
 import './App.css'
 
@@ -16,7 +16,7 @@ import DetailsApt from './pages/DetailsApt'
 import Header from './components/Header';
 // {} :  element= {<Home />} 
 function App() {
-  const user = useContext(userContext)
+  const user = localStorage.getItem('token') || useContext(userContext)
 
   return (
     <>
@@ -26,7 +26,7 @@ function App() {
           <Header />
           <Routes>          
             <Route path='/' element= {<Home />} />
-            <Route path='/register' element= {user ? <Navigate to="/" />: <Register />} /> {/*Voir comment restreindre l'accès à register & login en cas de User */}
+            <Route path='/register' element= {user ? <Navigate to="/" /> : <Register />} /> {/*Voir comment restreindre l'accès à register & login en cas de User */}
             <Route path='/login' element= {user ? <Navigate to="/" /> : <Login />} />
             
             <Route element ={<ProtectedRoutes />}>              

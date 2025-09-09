@@ -1,36 +1,37 @@
 const mongoose = require('mongoose')
 
 const appartementSchema = new mongoose.Schema({
-    proprio:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Utilisateur'
-    },
+    // proprio:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Utilisateur'
+    // },
     // locataire:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Utilisateur'
     // },
-    titre: {
-        type: String,
-        required,
-    },
-    description:{
-        type: String,
-        required
-    },
-    photos:{
+    // titre: {
+    //     type: String,
+    //     required,
+    // },
+    // description:{
+    //     type: String,
+    //     require
+    // },
+    images:{
         type:[String],
         required:true,
     },
-    type:{
+    categorie:{
         type: String,
-        required,
+        require,
     },
     options:{
-        type: [String]
+        type: [String],
+        require
     },
     adresse:{
         type: String,
-        required,
+        require,
     }
     // ville:{
     //     type: String,

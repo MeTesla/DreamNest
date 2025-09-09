@@ -20,8 +20,8 @@ function Header() {
 
     function handleLogout(e){
         e.stopPropagation()
-        localStorage.removeItem('token')
         setUser(false)
+        localStorage.removeItem('token')        
         setShowMenu(!showMenu)
     }
 

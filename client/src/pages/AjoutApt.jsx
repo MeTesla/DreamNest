@@ -84,7 +84,6 @@ function AjoutApt() {
             //console.log(value);
         });
 
-
         const reponse = await fetch('http://localhost:3000/appartements/ajout-appartement',{
             method: "POST",
             body: formData
@@ -92,6 +91,10 @@ function AjoutApt() {
         const data = await reponse.json()
         console.log(data);
         
+        setCategorie('')   
+        setAdresse('')
+        setMultipleSel([])
+        setAptImgs([])
     }
    return (
 
@@ -114,6 +117,7 @@ function AjoutApt() {
                     multiple
                     style={{display:'none'}}
                     onChange={(e)=>handlePhotos(e)}
+                    required
                 />
                 <label htmlFor="photos">
                     <MdOutlineCloudUpload size={50}/>
@@ -149,6 +153,7 @@ function AjoutApt() {
                 onChange={(e)=>setAdresse(e.target.value)}
                 rows="5"
                 value={adresse}
+                required
             >                
             </textarea>
         </div>

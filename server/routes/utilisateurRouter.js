@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { hash } = require('bcrypt');
 const utilisateurRouter= express.Router()
 const UtilisateurModel = require('../models/UtilisateurModel')
+const AppartementModel = require('../models/AppartementModel')
 utilisateurRouter.use(express.json())
 
 /* Configuration Multer for File Upload */
@@ -89,11 +90,31 @@ utilisateurRouter.post('/login', async(req, res)=>{
 })
 
 // Ajout appartement
-utilisateurRouter.post('/appartements/ajout-appartement',upload.array('images', 10) ,async(req, res)=>{
+utilisateurRouter.post('/appartements/ajout-appartement',
+upload.array('images', 10) ,async(req, res)=>{
   const {categorie, adresse, options} = req.body
-  const [images] = req.files
-  const count = Array.isArray(images) ? images.length : 0;
-  res.json(images)
+  if(!categorie || !adresse || !options){
+    return res.json({success:false, message:'Tous les champs sont requis !'})
+  }
+  
+  const imagesReq = req.files
+  //Paths from images
+  
+  function generatePaths(images){
+    const paths=[]
+    images.forEach(img=>{
+      const imagePath = img.path
+      paths.push(imagePath.replace(/\\/g, '/'))
+    })
+    return paths
+  }
+  const images= generatePaths(imagesReq)
+    
+  const appartement = new AppartementModel({
+     categorie, adresse, options, images
+  })
+  await appartement.save()
+  res.json(appartement)
 })
 
 // Voir tous les appartements
