@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/ajoutApt.css'
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { IoWifi } from "react-icons/io5";
@@ -10,7 +10,61 @@ import { MdOutlineIron } from "react-icons/md";
 
 function AjoutApt() {
     const [aptImg, setAptImg] = useState([])
-  return (
+    const [categorie, setCategorie] = useState('')
+    const [selectedCategorie, setSelectedCategorie] = useState('')
+
+    const [options, setOptions] = useState([])
+    const [multipleSel, setMultipleSel] = useState([])
+
+    const optionsIcons=[
+        {
+            nom:'wifi',
+            icone:<IoWifi />
+        },
+        {
+            nom: 'dog' ,
+            icone: <FaDog />
+        }        ,
+        {
+            nom: 'cuisine',
+            icone:<TbToolsKitchen2/>
+        },
+        {
+            nom: 'tv',
+            icone:<FaTv />
+        },
+        {
+            nom: 'garage',
+            icone:<MdOutlineGarage />
+        },
+        {
+            nom: 'repassage' ,
+            icone:<MdOutlineIron />
+        },
+    ]
+
+    useEffect(()=>{
+        if (categorie=='') return
+        console.log(categorie)
+    },[categorie])
+
+    function handleMultipleSel(key){      
+        if(multipleSel.includes(key)){
+            setMultipleSel(prev=>
+                prev.filter(option=> option !== key)                                
+            )
+        } else{
+                setMultipleSel(prev=>[...prev, key])                
+            }
+    }
+//     if (amenities.includes(facility)) {
+//       setAmenities((prevAmenities) =>
+//         prevAmenities.filter((option) => option !== facility)
+//       );
+//     } else {
+//       setAmenities((prev) => [...prev, facility]);
+//     }
+   return (
 
     <div className='ajout-apt'>
       <form className='form-ajout-apt'>        
@@ -36,12 +90,24 @@ function AjoutApt() {
         <div className="categorie">
             <h1>Catégorie du logement : </h1>
             <div className="categories">
-                <div className="choix">Studio</div>
-                <div className="choix">Appartement</div>
-                <div className="choix">Villa</div>
+                 {['Appartement', 'Studio', 'ville'].map((apt, index)=>(
+                <div
+                    key={index}
+                    // className={selectedCategorie === apt ? 'selected': ''}
+                    // onClick={(e)=>{setSelectedCategorie(e.target.innerText)}}
+                    className={index === selectedCategorie ? 'selected': ''}
+                    onClick={(e)=>{
+                        setSelectedCategorie(index);
+                        setCategorie(apt)  
+                    }}
+                >
+                    {apt}
+                </div>
+            ))}
             </div>
+           
         </div>
-        
+
         <h1>Adresse : </h1>
         <div className="adresse">
             <textarea name="adress" id="" rows="5">
@@ -51,33 +117,21 @@ function AjoutApt() {
 
         <h1>Décrire mieux le logement</h1>
         <div className="options">
-            <div className="wifi">
-                <span>Wifi</span>
-                 <IoWifi size={40} />
+            
+        {optionsIcons.map((option, index)=>(
+            <div
+                key={index}
+                className={multipleSel.includes(option.nom) ? "selected" : "" }
+                onClick={()=>handleMultipleSel(option.nom)}
+            >{option.icone}
             </div>
-            <div className="dog">
-                <span>Chien</span>
-                <FaDog size={40} />
-            </div>
-            <div className="cuisine">
-                <span>Cuisine</span>
-                <TbToolsKitchen2 size={40} />    
-            </div>
-            <div className="tv">
-                <span>TV</span>
-                <FaTv size={40} />
-            </div>
-            <div className="garage">
-                <span>Garage</span>
-                <MdOutlineGarage size={40} />
-            </div>
-            <div className="fer">
-                <span>Repassage</span>
-                <MdOutlineIron size={40} />
-            </div>
+ 
+        ))}    
+            
         </div>
         <div className='submit'>
             <button  type="submit">Ajouter</button>
+            <button  type="">Annuler</button>
         </div>
       </form>
     </div>
