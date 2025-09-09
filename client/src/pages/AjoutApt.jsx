@@ -9,11 +9,10 @@ import { MdOutlineGarage } from "react-icons/md";
 import { MdOutlineIron } from "react-icons/md";
 
 function AjoutApt() {
-    const [aptImg, setAptImg] = useState([])
+    const [aptImgs, setAptImgs] = useState([])
     const [categorie, setCategorie] = useState('')
     const [selectedCategorie, setSelectedCategorie] = useState('')
-
-    const [options, setOptions] = useState([])
+    const [adresse, setAdresse] = useState('')
     const [multipleSel, setMultipleSel] = useState([])
 
     const optionsIcons=[
@@ -57,28 +56,64 @@ function AjoutApt() {
                 setMultipleSel(prev=>[...prev, key])                
             }
     }
-//     if (amenities.includes(facility)) {
-//       setAmenities((prevAmenities) =>
-//         prevAmenities.filter((option) => option !== facility)
-//       );
-//     } else {
-//       setAmenities((prev) => [...prev, facility]);
-//     }
+
+    function handlePhotos(e){
+        const photos = e.target.files;
+        setAptImgs((prevPhotos) =>(
+            // for(let photo in photos){
+            // if(photos && prevPhotos.includes(photo)) return 
+            // //console.log(aptImgs.includes(photo));                
+            // }
+        
+        [...prevPhotos, ...photos])   
+        )    
+    }
+
+    const formData = new FormData()
+    
+    formData.append('categorie', categorie)
+    formData.append('adresse', adresse)
+    formData.append('options', multipleSel)
+    aptImgs.forEach(img=>{
+        formData.append('images', img)
+    })
+
+    const handleSubmit = async(e)=>{
+        e.preventDefault()
+        formData.forEach((value, name) => {
+            //console.log(value);
+        });
+
+
+        const reponse = await fetch('http://localhost:3000/appartements/ajout-appartement',{
+            method: "POST",
+            body: formData
+        })
+        const data = await reponse.json()
+        console.log(data);
+        
+    }
    return (
 
     <div className='ajout-apt'>
       <form className='form-ajout-apt'>        
         <h1>Ajouter des photos du logement</h1>
-        {aptImg && aptImg.map(img=>(
-            <div className="apt-img">
-                <img src={URL.createObjectURL(img)} alt="apt img" />
-            </div>
+        <div className="apt-img">
+        {aptImgs && aptImgs.map((img,key)=>(            
+                <img src={URL.createObjectURL(img)} 
+                key={key}
+                alt="apt img" />            
         ))}
+        </div>
         <div className="apt-photos">
             <div className="photos">
-                <input type="file" name="photos" id="photos" 
+                <input 
+                    type="file" 
+                    name="photos" id="photos" //ATTENTION name == id
                     accept='image/*'
+                    multiple
                     style={{display:'none'}}
+                    onChange={(e)=>handlePhotos(e)}
                 />
                 <label htmlFor="photos">
                     <MdOutlineCloudUpload size={50}/>
@@ -90,7 +125,7 @@ function AjoutApt() {
         <div className="categorie">
             <h1>Catégorie du logement : </h1>
             <div className="categories">
-                 {['Appartement', 'Studio', 'ville'].map((apt, index)=>(
+                 {['Appartement', 'Studio', 'villa'].map((apt, index)=>(
                 <div
                     key={index}
                     // className={selectedCategorie === apt ? 'selected': ''}
@@ -110,8 +145,11 @@ function AjoutApt() {
 
         <h1>Adresse : </h1>
         <div className="adresse">
-            <textarea name="adress" id="" rows="5">
-
+            <textarea name="adress"
+                onChange={(e)=>setAdresse(e.target.value)}
+                rows="5"
+                value={adresse}
+            >                
             </textarea>
         </div>
 
@@ -130,7 +168,9 @@ function AjoutApt() {
             
         </div>
         <div className='submit'>
-            <button  type="submit">Ajouter</button>
+            <button  type="submit"
+                onClick={handleSubmit}
+            >Ajouter</button>
             <button  type="">Annuler</button>
         </div>
       </form>

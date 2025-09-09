@@ -17,6 +17,22 @@ h1{
     padding:20px;
     margin: 20px auto;
 }
+.apt-img{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.apt-img img{
+    height: 120px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 0 4px gray;
+    transition: 0.2s ;
+}
+.apt-img img:hover{
+    transform: scale(1.03);
+}
 .apt-photos .photos label{
     text-align: center;
 }

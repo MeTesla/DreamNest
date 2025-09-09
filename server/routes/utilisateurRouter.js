@@ -14,9 +14,10 @@ const storage = multer.diskStorage({
     cb(null, "public/uploads/"); // Store uploaded files in the 'uploads' folder
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now()+file.originalname ); // Use the original file name
+    cb(null, Date.now() + file.originalname); // Use the original file name
   },
-}); 
+});
+
 const upload = multer({ storage });
 
 // Generate token function
@@ -88,8 +89,11 @@ utilisateurRouter.post('/login', async(req, res)=>{
 })
 
 // Ajout appartement
-utilisateurRouter.post('/appartements/new', async(req, res)=>{
-
+utilisateurRouter.post('/appartements/ajout-appartement',upload.array('images', 10) ,async(req, res)=>{
+  const {categorie, adresse, options} = req.body
+  const [images] = req.files
+  const count = Array.isArray(images) ? images.length : 0;
+  res.json(images)
 })
 
 // Voir tous les appartements
