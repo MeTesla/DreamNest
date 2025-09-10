@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react'
 import { userContext } from '../context/AuthContext'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AjoutApt from '../pages/AjoutApt';
 
 import '../styles/header.css'
@@ -13,7 +13,7 @@ import logoChef from '../assets/logoChef.png'
 function Header() {
     const {user, setUser} = useContext(userContext)
     const [showMenu, setShowMenu] = useState(false)
-    
+    const navigate= useNavigate()
     function handleShowMenu(){
         setShowMenu(!showMenu)
     }
@@ -27,7 +27,8 @@ function Header() {
 
     return (
     <div className='header'>
-      <div className="logo">
+      <div className="logo"
+        onClick={()=>navigate('/')}>{/* onClick = {navigate('/')} nooooon */}
         <img src={logoChef} alt="Chef-logo" />
       </div>
       <div className="user" onClick={handleShowMenu}>

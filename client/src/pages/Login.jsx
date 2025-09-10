@@ -22,7 +22,7 @@ function Login() {
 
         if(data.success){
           localStorage.setItem('token', data.token)                   
-          setUser(true)
+          setUser(data.token)
           navigate('/')
         } else{
           navigate('/register')

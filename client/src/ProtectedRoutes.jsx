@@ -4,7 +4,6 @@ import { userContext } from './context/AuthContext'
 
 function ProtectedRoutes() {
     const {user} = useContext(userContext)
-    console.log(user);
     
   return (
     <div>

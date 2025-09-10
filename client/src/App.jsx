@@ -32,7 +32,10 @@ function App() {
             <Route element ={<ProtectedRoutes />}>              
               <Route path='/favoris' element= {<Favoris />} />
               <Route path='/appartements/ajout-appartement' element= {<AjoutApt />} />
-              <Route path='/appartements/:id' element= {<DetailsApt />} />  
+              <Route path='/appartements/:id' element= {<DetailsApt />} />
+              {/* /:id est CRUTIAL  il doit correspondre au /:id de fetch
+              
+              */}  
             </Route>  
 
           </Routes>

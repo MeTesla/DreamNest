@@ -7,6 +7,8 @@ function Home() {
   const {user, setUser} = useContext(userContext)
   useEffect(()=>{
     setUser(localStorage.getItem('token'))
+    console.log('user from home : ' + user);
+    
   },[])
   return (
     <div>

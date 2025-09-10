@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const appartementSchema = new mongoose.Schema({
-    // proprio:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Utilisateur'
-    // },
+    proprietaire:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Utilisateur'
+    },
     // locataire:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'Utilisateur'

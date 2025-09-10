@@ -1,7 +1,11 @@
 const express= require('express')
 const multer = require('multer')
-const AppartementModel = require('../models/AppartementModel')
+
+const userAuth = require('../middleware/userAuth')
+const AppartementModel = require('../models/AppartementModel');
 const appartementRouter = express.Router()
+
+
 /* Configuration Multer for File Upload */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -15,16 +19,17 @@ const upload = multer({ storage });
 
 
 //--------------------- Ajout appartement
-appartementRouter.post('/appartements/ajout-appartement',
+appartementRouter.post('/appartements/ajout-appartement',userAuth,
 upload.array('images', 10) ,async(req, res)=>{
+  
   const {categorie, adresse, options} = req.body
   if(!categorie || !adresse || !options){
     return res.json({success:false, message:'Tous les champs sont requis !'})
   }
   
   const imagesReq = req.files
-  //Paths from images
   
+  //Paths from images
   function generatePaths(images){
     const paths=[]
     images.forEach(img=>{
@@ -33,19 +38,30 @@ upload.array('images', 10) ,async(req, res)=>{
     })
     return paths
   }
+
   const images= generatePaths(imagesReq)
     
   const appartement = new AppartementModel({
-     categorie, adresse, options, images
+     categorie, adresse, options, images, proprietaire:req.proprietaireId
   })
   await appartement.save()
   res.json(appartement)
 })
 
 //Voir tous les appartements
-appartementRouter.get('/apprtements', async(req, res)=>{
-  const data = await AppartementModel.find()
+appartementRouter.get('/appartements', async(req, res)=>{
+  const data = await AppartementModel.find().populate('proprietaire', 'nom email')
   res.json(data)
+})
+
+// Détails d'un appartement
+appartementRouter.get('/appartements/:id', async(req, res)=>{
+  const {id}=req.params
+  
+  const appartement= await AppartementModel.findById(id)
+  if(!appartement) return res.json({success:false, data: appartement})
+  
+  res.json(appartement)
 })
 
 // Voir mon/mes appartements
@@ -53,10 +69,6 @@ appartementRouter.get('/appartements/mesappartements', async(req, res)=>{
 
 })
 
-// Détails d'un appartement
-appartementRouter.get('/appartements/:id', async(req, res)=>{
-
-})
 
 // Voir mes favoris
 appartementRouter.get('/appartements/favoris', async(req, res)=>{

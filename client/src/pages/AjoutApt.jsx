@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { userContext } from '../context/AuthContext';
+
 import '../styles/ajoutApt.css'
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { IoWifi } from "react-icons/io5";
@@ -9,6 +11,7 @@ import { MdOutlineGarage } from "react-icons/md";
 import { MdOutlineIron } from "react-icons/md";
 
 function AjoutApt() {
+    const {user, setUser} = useContext(userContext)
     const [aptImgs, setAptImgs] = useState([])
     const [categorie, setCategorie] = useState('')
     const [selectedCategorie, setSelectedCategorie] = useState('')
@@ -43,8 +46,7 @@ function AjoutApt() {
     ]
 
     useEffect(()=>{
-        if (categorie=='') return
-        console.log(categorie)
+        if (categorie=='') return            
     },[categorie])
 
     function handleMultipleSel(key){      
@@ -86,6 +88,9 @@ function AjoutApt() {
 
         const reponse = await fetch('http://localhost:3000/appartements/ajout-appartement',{
             method: "POST",
+            headers: {
+                authorization: `Bearer ${user}`
+            },
             body: formData
         })
         const data = await reponse.json()
