@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import Header from '../components/Header'
-import Slider from '../components/Slider'
 import { userContext } from '../context/AuthContext'
+import Slider from '../components/Slider'
+import Appartements from '../components/Appartements'
 function Home() {
   const {user, setUser} = useContext(userContext)
   useEffect(()=>{
@@ -10,6 +11,7 @@ function Home() {
   return (
     <div>
       <Slider />
+      <Appartements />      
     </div>
   )
 }

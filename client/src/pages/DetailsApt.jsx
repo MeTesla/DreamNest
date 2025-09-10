@@ -3,7 +3,7 @@ import React from 'react'
 function DetailsApt() {
   return (
     <div>
-      <h1>DetailApt</h1>
+      <h1>Détails appartement</h1>
     </div>
   )
 }

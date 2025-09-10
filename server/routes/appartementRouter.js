@@ -43,8 +43,9 @@ upload.array('images', 10) ,async(req, res)=>{
 })
 
 //Voir tous les appartements
-appartementRouter.get('/apprtements/all', async(req, res)=>{
-
+appartementRouter.get('/apprtements', async(req, res)=>{
+  const data = await AppartementModel.find()
+  res.json(data)
 })
 
 // Voir mon/mes appartements
